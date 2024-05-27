@@ -1,5 +1,5 @@
 db.usuarios.insertMany([{ "nombre": "Juan",
-"apellido": "Peres" },
+"apellido": "Peres" },sdsdsd
 { "nombre": "Maria",
 "apellido": "Santos" },
 { "nombre": "Pedro",
