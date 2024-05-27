@@ -1,0 +1,119 @@
+db.usuarios.insertMany([{ "nombre": "Juan",
+"apellido": "Peres" },
+{ "nombre": "Maria",
+"apellido": "Santos" },
+{ "nombre": "Pedro",
+"apellido": "Torrez",
+"carnetIdentidad": "23423535a" },
+{ "nombre": "Maria",
+"apellido": "Claros",
+"carnetIdentidad": "34535435a",
+"fechaNacimiento": ISODate("2000-02-12") },
+{ "nombre": "Victor",
+"apellido": "Llano",
+"carnetIdentidad": "43534534",
+"fechaNacimiento": ISODate("2003-02-12"),
+"direccion": {
+              "nombre": "Av. Heroinas",
+              "numero": 1231
+              } 
+},
+{ "nombre": "Victor",
+"apellido": "Llano",
+"carnetIdentidad": "43534534",
+"correos": ["vllano@gmail.com", "vllano@yahoo.com", "vllano@hotmail.com"]
+},
+{ "nombre": "Ines",
+"apellido": "Claros",
+"carnetIdentidad": "343545",
+"correos": ["illanos@gmail.com"],
+"Libros": [
+          {
+            "titulo":"Base de datos I",
+            "descripcion": "Es un libro del area de base de datos",
+            "autor":"Anonimo",
+            "tipo":"Informatica" 
+          },
+          {
+            "titulo":"Base de datos II",
+            "descripcion": "Es un libro del area de base de datos",
+            "autor":"Anonimo",
+            "tipo":"Informatica" 
+          },
+          {
+            "titulo":"Base de datos III",
+            "descripcion": "Es un libro del area de base de datos",
+            "autor":"Anonimo",
+            "tipo":"Informatica" 
+          }
+]
+}])
+
+
+//crear
+db.createCollection("Productos")
+
+//borrar
+db.Productos.drop()
+
+
+show collections
+
+//borrar una base de datos
+
+use nombredebase
+
+db.dropDatabase()
+
+
+
+//insertamos documentos desde variables
+
+producto1 = {"nombre": "Leche", "precio": 7.5, "stock": 10, "descipcion": "Este es un producto sano"}
+producto2 = {"nombre": "Pan", "precio": 0.5, "stock": 100, "descipcion": "Este es un producto bueno"}
+producto3 = {"nombre": "Arroz", "precio": 5, "stock": 20, "descipcion": "Este es un producto natural"}
+producto4 = {"nombre": "Fideo", "precio": 6, "stock": 30, "descipcion": "Este es un producto procesado"}
+producto5 = {"nombre": "Azucar", "precio": 9, "stock": 10, "descipcion": "Este es un producto procesado"}
+
+db.Productos.insertMany([producto1, producto2, producto3, producto4, producto5])
+
+//buscar un producto por id
+
+db.Productos.find({_id: ObjectId("652e8ba8e86124e3c48618cf")})
+
+
+//buscar solo por nombre y precio de un producto
+
+db.Productos.find({_id: ObjectId("652e8ba8e86124e3c48618cf")}, {"nombre": 1, "precio": 2, "_id": 0})
+
+//buscar el nombre, precio y stock de todos los productos
+
+
+db.Productos.find({}, {"nombre": 1, "precio": 2, "stock": 3})
+
+// mostrar los productos que tengan menor a 20 unidades en stock
+
+db.Productos.find({"stock": {$lt: 20}})
+
+//mostrar el nombre y la descripcion de los productos que su precio sea mayor a 5bs
+
+db.Productos.find({"precio": {$gte:5}}, {"nombre":1, "descripcion": 4 })
+
+//mostrar el nombre y la descripcion de los productos que su precio sea mayor igual a 5bs y menor igual a 10bs
+
+db.Productos.find({"precio": {$gte:5}, "precio": {$lte:10}}, {"nombre":1, "descripcion": 4 })
+
+//Mostrar los productos que en su descripcion contenga 'procesado' (like)
+db.Productos.find({"descipcion": /procesado/})
+
+//Mostrar los usuarios que en su nombre de direccion contenga 'Aroma' y 'Heroinas' (like)
+db.usuarios.find({$or:
+[
+  {"direccion.nombre": /Aroma/},
+  {"direccion.nombre": /Heroinas/}
+  ]
+  })
+
+
+
+
